@@ -24,6 +24,7 @@ function App() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      
       <NavBar />
       <Grid container spacing={1}>
         
