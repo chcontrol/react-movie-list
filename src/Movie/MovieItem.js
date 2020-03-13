@@ -6,9 +6,8 @@ export class MovieItem extends Component {
         super(props)
     
         this.state = {
-             
+            
         }
-        console.log(props.movie);
     }
 
     
@@ -22,7 +21,7 @@ export class MovieItem extends Component {
                     <thead>
                         <tr>
                         <td>
-                            <img src={poster_src}  />
+                            <img src={poster_src} alt={'description'} />
                         </td>
                         <td>
                             <strong >{ title }</strong>

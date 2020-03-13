@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Axios from 'axios'
-import MovieItem from './MovieItem';
+import MovieItem from './Movie/MovieItem';
 
 
 
