@@ -20,15 +20,15 @@ export class MovieItem extends Component {
                 <table key={id}>
                     <thead>
                         <tr>
-                        <td>
-                            <img src={poster_src} alt={'description'} />
-                        </td>
-                        <td>
-                            <strong >{ title }</strong>
-                            <p>
-                                {overview }
-                            </p>
-                        </td>
+                            <td>
+                                <img src={poster_src} alt={'description'} />
+                            </td>
+                            <td>
+                                <strong >{ title }</strong>
+                                <p>
+                                    {overview }
+                                </p>
+                            </td>
                         </tr>
                     </thead>
                 </table>
