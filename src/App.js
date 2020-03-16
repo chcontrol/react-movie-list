@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 
 // import MyDataTable from "./MyDataTable/MyDataTable";
-import NavBar from "./NavBar/NavBar";
 import ComponentLifecycle from "./ComponentLifecycle/ComponentLifecycle";
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +26,6 @@ function App() {
   return (
     <div className={classes.root}>
       
-      <NavBar />
       <Grid container spacing={1}>
         
           

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class SelectComponent extends Component {
+export class RouterMaterialUI extends Component {
     render() {
         return (
             <div>
@@ -10,4 +10,4 @@ export class SelectComponent extends Component {
     }
 }
 
-export default SelectComponent
+export default RouterMaterialUI
