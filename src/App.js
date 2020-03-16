@@ -1,11 +1,13 @@
-import React, { Component } from "react";
-//import MovieMain from './Movie/MovieMain'
+import React from "react";
+// import MovieMain from './Movie/MovieMain'
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 
-import MyDataTable from "./MyDataTable/MyDataTable";
+
+// import MyDataTable from "./MyDataTable/MyDataTable";
 import NavBar from "./NavBar/NavBar";
+import ComponentLifecycle from "./ComponentLifecycle/ComponentLifecycle";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -33,7 +35,7 @@ function App() {
        
         <Grid item xs={12} >
           <Paper className={classes.paper}>
-            <MyDataTable/>
+            <ComponentLifecycle />
           </Paper>
         </Grid>
       </Grid>
