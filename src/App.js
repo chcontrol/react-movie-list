@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 
 // import MyDataTable from "./MyDataTable/MyDataTable";
-import ComponentLifecycle from "./ComponentLifecycle/ComponentLifecycle";
+import SelectOptions from "./SelectOptions/SelectOptions";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -33,7 +33,7 @@ function App() {
        
         <Grid item xs={12} >
           <Paper className={classes.paper}>
-            <ComponentLifecycle />
+            <SelectOptions />
           </Paper>
         </Grid>
       </Grid>
