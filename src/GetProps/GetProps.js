@@ -12,7 +12,7 @@ export class GetProps extends Component {
     return (
       <div>
         <div>
-          <MyDataTable titleTable ={this.props.message} />
+          <MyDataTable titleTable ={this.props.prj_description} prj_code={this.props.prj_code} />
         </div>
       </div>
     );

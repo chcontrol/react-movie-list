@@ -10,6 +10,7 @@ export class SelectOptions extends Component {
     this.state = {
       stateNow: "",
       options: [],
+      prj_code: ""
     };
   }
 
@@ -19,19 +20,25 @@ export class SelectOptions extends Component {
 
   componentDidMount() {
     const url =
-      "https://api.themoviedb.org/3/search/movie?api_key=c65e410ca918a233b860e99728916f71&query=her";
+      "http://localhost:88/sts_web_center_new/module/USER_MNG/data.php?load=GetAllProject";
     var optionsArray = [];
     Axios.get(url).then(result => {
-      result.data.results.forEach(item => {
-        optionsArray.push({ value: item.id, label: item.title });
+      result.data.forEach(item => {
+        optionsArray.push({
+          value: item.prj_code,
+          prj_code: item.prj_code,
+          label: item.prj_description
+        });
       });
-      this.setState({ options:optionsArray });
+      this.setState({ options: optionsArray });
+      
     });
   }
 
-  setStateOption = (value)=>{
-    this.setState({ stateNow: value })
-  }
+  setStateOption = value => {
+    console.log(value);
+    this.setState({ stateNow: value, prj_code: value });
+  };
 
   render() {
     return (
@@ -42,7 +49,9 @@ export class SelectOptions extends Component {
             id="free-solo-2-demo"
             disableClearable
             onChange={(event, value) => this.setStateOption(value)}
-            options={this.state.options.map(option => option.label)}
+            options={this.state.options.map(
+              option => '['+option.value + '] ' + option.label
+            )}
             renderInput={params => (
               <TextField
                 {...params}
@@ -53,7 +62,10 @@ export class SelectOptions extends Component {
               />
             )}
           />
-          <GetProps message={this.state.stateNow} />
+          <GetProps
+            prj_description={this.state.stateNow}
+            prj_code={this.state.prj_code}
+          />
         </div>
       </div>
     );
