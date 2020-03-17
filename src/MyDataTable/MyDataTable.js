@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-
 import Axios from "axios";
 import MaterialTable from "material-table";
-import SelectDataTable from "./SelectDataTable";
-
 import { forwardRef } from "react";
-
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import Check from "@material-ui/icons/Check";
@@ -50,59 +46,57 @@ class MyDataTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: []
+      rows: [],
+      titleTable: ""
     };
   }
   componentDidMount() {
     this.search("her");
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    //this.search(this.props.titleTable);
+
+
+
+
+  }
+
+  componentWillUnmount() {
+    this.setState({ titleTable: false })
+  }
   search = keyword => {
     //console.log(keyword)
-    const url =
-      "https://api.themoviedb.org/3/search/movie?api_key=c65e410ca918a233b860e99728916f71&query=" +
-      keyword;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=c65e410ca918a233b860e99728916f71&query=${keyword}`;
+    //const url = `http://172.18.1.194/sts_web_center/module/USER_MNG/data.php?load=GetUserAll`
     var dataArray = [];
     Axios.get(url).then(result => {
       result.data.results.forEach(item => {
         dataArray.push(item);
-        item.poster_src = "http://image.tmdb.org/t/p/w185/" + item.poster_path;
       });
       this.setState({ rows: dataArray });
     });
   };
 
   render() {
-   
- 
     return (
       <div>
-        <SelectDataTable words='000' />
         <p>{this.state.rows.id}</p>
         <MaterialTable
+          title={this.props.titleTable}
           icons={tableIcons}
           options={{
             exportButton: true,
-            filtering: true
+            filtering: true,
+            paging: false,
+            doubleHorizontalScroll: true,
+            maxBodyHeight:450,
+            minBodyHeight:450
           }}
           columns={[
-            {
-              field: "url",
-              title: "Avatar",
-              render: rowData => (
-                <img
-                  src={
-                    "http://image.tmdb.org/t/p/w185/" +
-                    this.state.rows.poster_path
-                  }
-                  style={{ width: 50, borderRadius: "50%" }}
-                />
-              )
-            },
             { title: "id", field: "id" },
             { title: "original_title", field: "original_title" },
             { title: "vote_average", field: "vote_average", type: "numeric" },
-
             {
               title: "original_title",
               field: "original_title",
@@ -113,8 +107,6 @@ class MyDataTable extends Component {
         />
       </div>
     );
-    
-
   }
 }
 

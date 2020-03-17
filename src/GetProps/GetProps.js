@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Select from 'react-select';
+import MyDataTable from "./../MyDataTable/MyDataTable";
 
 export class GetProps extends Component {
   constructor(props) {
@@ -7,11 +7,13 @@ export class GetProps extends Component {
     this.state = {
     };
   }
-
+  
   render() {
     return (
       <div>
-        <p>{this.props.message}</p>
+        <div>
+          <MyDataTable titleTable ={this.props.message} />
+        </div>
       </div>
     );
   }

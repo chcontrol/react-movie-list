@@ -1,5 +1,5 @@
 import React from "react";
-// import MovieMain from './Movie/MovieMain'
+import Clock from './Clock/Clock.js'
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,7 +25,7 @@ function App() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      
+      <Clock />
       <Grid container spacing={1}>
         
           

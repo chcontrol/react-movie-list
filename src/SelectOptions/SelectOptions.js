@@ -2,21 +2,14 @@ import React, { Component } from "react";
 import Axios from "axios";
 import GetProps from "./../GetProps/GetProps";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 
 export class SelectOptions extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       stateNow: "",
-      rows: [],
-      dataArray: {},
-      options: [
-        { value: "chocolate", label: "Chocolate" },
-        { value: "strawberry", label: "Strawberry" },
-        { value: "vanilla", label: "Vanilla" }
-      ]
+      options: [],
     };
   }
 
@@ -25,31 +18,20 @@ export class SelectOptions extends Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
     const url =
       "https://api.themoviedb.org/3/search/movie?api_key=c65e410ca918a233b860e99728916f71&query=jack";
-    var dataArray = [];
     var optionsArray = [];
     Axios.get(url).then(result => {
       result.data.results.forEach(item => {
-        dataArray.push(item);
-        optionsArray.push({ value: item.value, label: item.title });
+        optionsArray.push({ value: item.id, label: item.title });
       });
-
-      this.setState({ rows: dataArray });
-      this.setState({ options: optionsArray });
-      console.log(optionsArray);
-      console.log();
+      this.setState({ options:optionsArray });
     });
   }
 
-  SelectState = event => {
-    this.setState({
-      stateNow: event.target.value
-    });
-    console.log(event.target.value);
-  };
-
+  setStateOption = (value)=>{
+    this.setState({ stateNow: value })
+  }
 
   render() {
     return (
@@ -59,9 +41,8 @@ export class SelectOptions extends Component {
             freeSolo
             id="free-solo-2-demo"
             disableClearable
-            onChange={(event, value) => this.setState({stateNow: value})}
-            options={this.state.rows.map(option => option.title)}
-            
+            onChange={(event, value) => this.setStateOption(value)}
+            options={this.state.options.map(option => option.label)}
             renderInput={params => (
               <TextField
                 {...params}
@@ -72,16 +53,6 @@ export class SelectOptions extends Component {
               />
             )}
           />
-
-          <select onChange={this.SelectState}>
-            {this.state.rows.map(item => (
-              <option key={item.id} value={item.title}>
-                {item.title}
-              </option>
-            ))}
-          </select>
-
-          <p>Now Select is ... {this.state.stateNow}</p>
           <GetProps message={this.state.stateNow} />
         </div>
       </div>
