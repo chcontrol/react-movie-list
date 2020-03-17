@@ -53,29 +53,30 @@ class MyDataTable extends Component {
   componentDidMount() {
     this.search("her");
   }
-
+  
   componentDidUpdate(prevProps, prevState) {
-    //this.search(this.props.titleTable);
-
-
-
-
+    
+    if(this.props.titleTable){
+      if(this.props.titleTable !== this.state.rows[0].title){
+        this.search(this.props.titleTable);
+      }
+    }
+    
   }
 
-  componentWillUnmount() {
-    this.setState({ titleTable: false })
-  }
   search = keyword => {
-    //console.log(keyword)
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=c65e410ca918a233b860e99728916f71&query=${keyword}`;
-    //const url = `http://172.18.1.194/sts_web_center/module/USER_MNG/data.php?load=GetUserAll`
+    const url = `http://172.18.1.194/sts_web_center/module/USER_MNG/data.php?load=GetUserAll`;
     var dataArray = [];
     Axios.get(url).then(result => {
-      result.data.results.forEach(item => {
+      result.data.forEach(item => {
         dataArray.push(item);
       });
       this.setState({ rows: dataArray });
     });
+    console.log(dataArray);
+    
+    //this.setState({ rows: dataArray });
+    
   };
 
   render() {
@@ -89,18 +90,16 @@ class MyDataTable extends Component {
             exportButton: true,
             filtering: true,
             paging: false,
-            doubleHorizontalScroll: true,
-            maxBodyHeight:450,
-            minBodyHeight:450
+            maxBodyHeight: 450,
+            minBodyHeight: 450
           }}
           columns={[
             { title: "id", field: "id" },
-            { title: "original_title", field: "original_title" },
-            { title: "vote_average", field: "vote_average", type: "numeric" },
+            { title: "username", field: "username" },
+            { title: "fullname", field: "fullname" },
             {
-              title: "original_title",
-              field: "original_title",
-              lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
+              title: "dep_name",
+              field: "dep_name",
             }
           ]}
           data={this.state.rows}

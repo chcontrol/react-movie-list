@@ -14,12 +14,12 @@ export class SelectOptions extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    console.log("UNSAFE_componentWillMount ");
+    //console.log("UNSAFE_componentWillMount ");
   }
 
   componentDidMount() {
     const url =
-      "https://api.themoviedb.org/3/search/movie?api_key=c65e410ca918a233b860e99728916f71&query=jack";
+      "https://api.themoviedb.org/3/search/movie?api_key=c65e410ca918a233b860e99728916f71&query=her";
     var optionsArray = [];
     Axios.get(url).then(result => {
       result.data.results.forEach(item => {
