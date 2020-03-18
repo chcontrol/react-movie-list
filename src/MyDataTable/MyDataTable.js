@@ -55,11 +55,6 @@ class MyDataTable extends Component {
   }
   
   componentDidUpdate(prevProps, prevState) {
-    console.log("this.props");
-    console.log(this.props);
-    console.log("this.prevProps");
-    console.log(this.prevProps);
-
     if(this.props.titleTable){
       if(this.props !== prevProps){
         this.search(this.props.titleTable);
@@ -68,8 +63,8 @@ class MyDataTable extends Component {
     
   }
 
-  search = keyword => {
-    const url = `http://172.18.1.194/sts_web_center/module/${(keyword.split("]")[0]).split("[")[1]}/data.php?load=GetUserAll`;
+  search = proj_code => {
+    const url = `http://172.18.1.194/sts_web_center/module/${(proj_code.split("]")[0]).split("[")[1]}/data.php?load=GetUserAll`;
     var dataArray = [];
     Axios.get(url).then(result => {
       result.data.forEach(item => {
@@ -77,11 +72,9 @@ class MyDataTable extends Component {
       });
       this.setState({ rows: dataArray });
     });
-    console.log("dataArray11111111111111111111111111111");
-    console.log((keyword.split("]")[0]).split("[")[1]);
-    
     //this.setState({ rows: dataArray });
-    
+    console.log(dataArray['id']);
+    console.log(dataArray);
   };
 
 

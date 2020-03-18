@@ -50,7 +50,7 @@ export class SelectOptions extends Component {
             disableClearable
             onChange={(event, value) => this.setStateOption(value)}
             options={this.state.options.map(
-              option => '['+option.value + '] ' + option.label
+              option => '['+option.value + '] ' + option.label,
             )}
             renderInput={params => (
               <TextField

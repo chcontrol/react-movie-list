@@ -17,13 +17,11 @@ export class MovieMain extends Component {
 }
   
 search = (keyword)=>{
-  //console.log(keyword)
   const url = 'https://api.themoviedb.org/3/search/movie?api_key=c65e410ca918a233b860e99728916f71&query='+keyword;
   var dataArray = []
   Axios.get(url).then(result=>{
     result.data.results.forEach(item=>{
       item.poster_src = "http://image.tmdb.org/t/p/w185/"+item.poster_path
-
       dataArray.push(item);
     });
     
@@ -39,7 +37,6 @@ search = (keyword)=>{
           <MovieItem  movie={item} />
       ))}
       </div>
-      
     )
   }
 }
