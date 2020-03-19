@@ -1,8 +1,6 @@
 import React from "react";
-import Login from './Login/Login.js'
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
+import NavDrawer from './NavDrawer/NavDrawer.js'
 
 
 // import MyDataTable from "./MyDataTable/MyDataTable";
@@ -24,13 +22,13 @@ function App() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
+      <NavDrawer />
+      {/* <Grid container spacing={1}>
         <Grid item xs={12} >
           <Paper className={classes.paper}>
-            <Login />
           </Paper>
         </Grid>
-      </Grid>
+      </Grid> */}
     </div>
   );
 }
