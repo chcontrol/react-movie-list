@@ -1,19 +1,23 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import AppsIcon from "@material-ui/icons/Apps";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Clock from "./../Clock/Clock.js";
 import MovieMain from "./../Movie/MovieMain.js";
 import SelectOptions from "./../SelectOptions/SelectOptions.js";
+import AppManageUserInforSyteline from "./../AppManageUserInforSyteline/AppManageUserInforSyteline.js";
+import AppGenBarcodeMiscReceipt from "./../AppGenBarcodeMiscReceipt/AppGenBarcodeMiscReceipt.js";
+import AppOXGAME from "./../AppOXGAME/AppOXGAME.js";
+import AppCustomerOrder from "./../AppCustomerOrder/AppCustomerOrder.js";
+
+import TagBarcodePrint from './../AppGenBarcodeMiscReceipt/TagBarcodePrint.js';
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -21,11 +25,8 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import NavDrawer from "./../NavDrawer/NavDrawer";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -63,7 +64,7 @@ export default function TemporaryDrawer() {
 
   const classes = useStyles();
   const [state, setState] = React.useState({
-    left: false,
+    left: false
   });
 
   const toggleDrawer = (side, open) => event => {
@@ -77,18 +78,18 @@ export default function TemporaryDrawer() {
     setState({ ...state, [side]: open });
   };
   const MenuList = [
-    { Menulink: "/", MenuText: "/" },
-    { Menulink: "/Movie", MenuText: "/Movie" },
-    { Menulink: "/users", MenuText: "/users" }
+    { Menulink: "/", MenuText: "นาฬิกา", prj_icon_fa: <MailIcon /> },
+    { Menulink: "/Movie", MenuText: "Movie", prj_icon_fa: "fas fa-ship" },
+    { Menulink: "/users", MenuText: "Users", prj_icon_fa: "fas fa-ship" },
+    { Menulink: "/AppManageUserInforSyteline", MenuText: "AppManageUserInforSyteline", prj_icon_fa: "fas fa-ship" },
+    { Menulink: "/AppGenBarcodeMiscReceipt", MenuText: "AppGenBarcodeMiscReceipt", prj_icon_fa: "fas fa-ship" },
+    { Menulink: "/AppOXGAME", MenuText: "AppOXGAME", prj_icon_fa: "fas fa-ship" },
+    { Menulink: "/AppCustomerOrder", MenuText: "AppCustomerOrder", prj_icon_fa: "fas fa-ship" }
+    
   ];
+
   return (
     <div className={classes.root}>
-      {/* <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup> */}
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -98,8 +99,7 @@ export default function TemporaryDrawer() {
             aria-label="menu"
             onClick={toggleDrawer("left", true)}
           >
-            
-              <MenuIcon  />
+            <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             STS Web Center
@@ -148,19 +148,30 @@ export default function TemporaryDrawer() {
           >
             <List component="nav">
               {MenuList.map((text, index) => (
-                <ListItem button component={Link} key={text.Menulink} to={text.Menulink}>
+                <ListItem
+                  button
+                  component={Link}
+                  key={text.Menulink}
+                  to={text.Menulink}
+                >
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>
-                  <ListItemText primary={text.Menulink} />
+                  <ListItemText primary={text.MenuText} />
                 </ListItem>
               ))}
             </List>
           </div>
         </Drawer>
         <Switch>
+        
           <Route path="/Movie" component={MovieMain}></Route>
+          <Route path="/AppGenBarcodeMiscReceipt/TagBarcodePrint" component={TagBarcodePrint}></Route>
           <Route path="/users" component={SelectOptions}></Route>
+          <Route path="/AppManageUserInforSyteline" component={AppManageUserInforSyteline}></Route>
+          <Route path="/AppGenBarcodeMiscReceipt" component={AppGenBarcodeMiscReceipt}></Route>
+          <Route path="/AppOXGAME" component={AppOXGAME}></Route>
+          <Route path="/AppCustomerOrder" component={AppCustomerOrder}></Route>
           <Route path="/" component={Clock}></Route>
         </Switch>
       </Router>
