@@ -20,10 +20,12 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import PrintIcon from "@material-ui/icons/Print";
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import CropFreeIcon from "@material-ui/icons/CropFree";
 import axios from "axios";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
+
 import {
   MuiThemeProvider,
   ThemeProvider,
@@ -53,6 +55,7 @@ const tableIcons = {
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   PrintIcon: forwardRef((props, ref) => <PrintIcon {...props} ref={ref} />),
+  FormatListNumberedIcon: forwardRef((props, ref) => <FormatListNumberedIcon {...props} ref={ref} />),
   CropFreeIcon: forwardRef((props, ref) => (
     <CropFreeIcon {...props} ref={ref} />
   )),
@@ -73,11 +76,16 @@ export default class MaterialTableDemo extends React.Component {
     super(props);
     this.state = {
       columns: [
-        { title: "CreateDate", field: "CreateDate", type: "datetime" },
+        { title: "CreateDate", field: "CreateDateConv",
+          filtering: false 
+        //type:"date"
+     },
         { title: "co number", field: "co_num" },
         { title: "customer number", field: "cust_num" },
         { title: "name", field: "cust_name" },
         { title: "city", field: "city" },
+        { title: "จำนวนรายการ", field: "co_line_count", type:"numeric" },
+        
       ],
       columns_co_item: [
         {
@@ -115,7 +123,6 @@ export default class MaterialTableDemo extends React.Component {
         { title: "qty ready", field: "qty_ready", type: "numeric" },
         { title: "qty shipped", field: "qty_shipped", type: "numeric" },
       ],
-      selectedRow: null,
       data: [],
     };
   }
@@ -134,7 +141,7 @@ export default class MaterialTableDemo extends React.Component {
         (response) => {
           const myArray = response.data.map((trans) => {
             return {
-              CreateDate: trans.CreateDate,
+              CreateDateConv: trans.CreateDateConv,
               co_num: trans.co_num,
               cust_num: trans.cust_num,
               cust_name: trans.name,
@@ -146,6 +153,7 @@ export default class MaterialTableDemo extends React.Component {
               Item: trans.Item,
               cost: trans.cost,
               coitem_list: trans.coitem_list,
+              co_line_count: trans.co_line_count,
             };
           });
           console.log(response.data);
@@ -168,14 +176,15 @@ export default class MaterialTableDemo extends React.Component {
             title="Customer Order List"
             columns={this.state.columns}
             data={this.state.data}
-            onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
             detailPanel={[
               {
-                tooltip: "Show Name",
+                icon:  (rowData) => <FormatListNumberedIcon />,
+                tooltip: "Co line",
                 render: (rowData) => {
                   return (
                     <div>
                       <MaterialTable
+                        
                         theme={theme}
                         title=""
                         style={{
@@ -187,10 +196,11 @@ export default class MaterialTableDemo extends React.Component {
                         columns={this.state.columns_co_item}
                         data={rowData.coitem_list}
                         options={{
+                            
                           headerStyle: {
                             backgroundColor: "#4f83cc",
                             color: "#FFF",
-                            height:20
+                            height: 20,
                           },
                           paging: false,
                           actionsColumnIndex: -1,
@@ -205,8 +215,20 @@ export default class MaterialTableDemo extends React.Component {
                   );
                 },
               },
+            //   {
+            //     icon: 'account_circle',
+            //     tooltip: "Show Name",
+            //     render: (rowData) => {
+            //       return (
+            //         <div>
+            //          asdf
+            //         </div>
+            //       );
+            //     },
+            //   },
             ]}
             options={{
+              filtering: true,
               exportButton: true,
               paging: true,
               maxBodyHeight: 550,
